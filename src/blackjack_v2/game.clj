@@ -4,8 +4,7 @@
 (defn new-card
   []
   "Generates a card number between 1 and 13."
-  (inc (rand-int 13))
-  )
+  (inc (rand-int 13)))
 
 (defn JQK->10
   [card]
@@ -26,7 +25,8 @@
 
 
 (defn player
-  [player-name] (let [card1 (new-card)
+  [player-name]
+    (let [card1 (new-card)
         card2 (new-card)
         cards [card1 card2]
         points (points-cards cards)]
@@ -38,5 +38,17 @@
     )
   )
 
-(card/print-player (player "Osvaldo"))
-(card/print-player (player "Mateus"))
+(defn more-card
+  [player]
+  (let [
+        card (new-card)
+        cards (conj (:cards player) card)
+        new-player (assoc player :cards cards)
+        points (points-cards cards)]
+    (assoc new-player :points points))
+
+)
+(def player (player "Osvaldo"))
+
+(card/print-player (more-card player))
+;(card/print-player (player "Mateus"))
