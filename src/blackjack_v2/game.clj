@@ -19,10 +19,7 @@
         card-with-A11   (map A->11 card-without-JQK)
         points-with-A-11  (reduce + card-with-A11)
         points-with-A1    (reduce + card-without-JQK)]
-   (if (> points-with-A-11 21) points-with-A1 points-with-A-11)
-    )
-  )
-
+   (if (> points-with-A-11 21) points-with-A1 points-with-A-11)))
 
 (defn player
   [player-name]
@@ -35,19 +32,18 @@
      :cards       cards
      :points      points
      }
-    )
-  )
+    ))
 
 (defn more-card
   [player]
   (let [
         card (new-card)
         cards (conj (:cards player) card)
-        new-player (assoc player :cards cards)
+        new-player (update player :cards conj card)
         points (points-cards cards)]
-    (assoc new-player :points points))
+     (assoc new-player :points points)
+    ))
 
-)
 (def player (player "Osvaldo"))
 
 (card/print-player (more-card player))
